@@ -1,0 +1,51 @@
+# Experiment Configuration - Data Augmentation
+# exp_003_augmentation
+
+experiment:
+  name: "exp_003_augmentation"
+  description: "Test data augmentation (flips, rotations, intensity shifts)"
+  date: "2026-01-18"
+  objective: "Ameliorer generalisation avec augmentation de donnees"
+
+model:
+  architecture: "UNet3D"
+  init_features: 48
+  depth: 3
+  in_channels: 1
+  out_channels: 1
+
+training:
+  epochs: 250
+  batch_size: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  scheduler: "CosineAnnealingLR"
+  
+loss:
+  type: "mse_gradient"
+  mse_weight: 0.7
+  gradient_weight: 0.3
+
+data:
+  patch_size: 64
+  num_patches_per_volume: 50
+  train_split: 0.8
+  augmentation: true  # Changed to true
+  augmentation_config: "intensity"  # flips + rotations + intensity shift
+
+hardware:
+  device: "cuda"
+  num_workers: 4
+  mixed_precision: false
+
+seed: 42
+
+notes: |
+  Changement par rapport au baseline:
+  - Augmentation activee: flips, rotations 90deg, intensity shift ±15%
+  
+  Pourquoi l'augmentation:
+  - Augmente la diversite des donnees d'entrainement
+  - Reduit le surajustement
+  - Rend le modele plus robuste aux variations
+  - Les grains n'ont pas d'orientation privilegiee -> rotations/flips sont naturels

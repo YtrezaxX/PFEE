@@ -1,0 +1,28 @@
+# Experiment 007: Double-Threshold Watershed
+#
+# Problème identifié dans exp_006:
+# - threshold=0.2 donne un fond propre MAIS coupe les bords des grains
+# - Les grains prédits sont plus petits que le ground truth
+#
+# Solution proposée: Double-seuil
+# - Seuil HAUT pour les MARKERS (centres des grains)
+# - Seuil BAS pour le MASQUE (où les grains peuvent grandir)
+#
+# Avantages:
+# - Markers propres (pas de bruit)
+# - Grains peuvent s'étendre jusqu'à leurs vraies frontières
+
+experiment:
+  name: "exp_007_double_threshold"
+  description: "Double-threshold watershed for better grain boundaries"
+  date: "2026-01-26"
+
+# Seuils à tester
+marker_thresholds: [0.15, 0.2, 0.25]  # Pour trouver les centres
+mask_thresholds: [0.02, 0.05, 0.08, 0.1]  # Pour le masque d'expansion
+
+# H-maxima pour les markers
+h_values: [0.03, 0.05]
+
+# Model
+model_checkpoint: "../exp_004_attention_unet/checkpoints/best_model.pth"

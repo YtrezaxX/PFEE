@@ -1,0 +1,36 @@
+# Experiment 006: Improved Masking for Watershed Segmentation
+# 
+# Problème identifié:
+# - Le masque `distance > 0` inclut trop de bruit/fond
+# - Les bords de l'image sont segmentés comme des "grains"
+# - Les frontières inter-grains sont incorrectes
+#
+# Tests à effectuer:
+# 1. Différents seuils de masquage (0.05, 0.1, 0.15, 0.2, 0.25)
+# 2. Opérations morphologiques (erosion, opening, closing)
+# 3. Filtrage des segments de bord
+# 4. Filtrage par taille des régions
+# 5. Combinaison avec l'image originale
+
+experiment:
+  name: "exp_006_improved_masking"
+  description: "Test different masking strategies for watershed"
+  date: "2026-01-26"
+  
+# Tests de seuils
+thresholds_to_test: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3]
+
+# Morphological operations
+morphology:
+  erosion_radius: [1, 2, 3]
+  opening_radius: [1, 2]
+  closing_radius: [1, 2]
+
+# Post-filtering
+filtering:
+  remove_border_grains: true
+  min_grain_volume: 50  # voxels
+  max_grain_volume: 10000  # voxels
+  
+# Uses model from exp_004
+model_checkpoint: "../exp_004_attention_unet/checkpoints/best_model.pth"

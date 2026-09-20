@@ -1,0 +1,30 @@
+# Experiment Configuration - Improved Watershed with H-maxima
+# exp_005_watershed_hmax
+
+experiment:
+  name: "exp_005_watershed_hmax"
+  description: "Test H-maxima transform pour ameliorer detection des centres de grains"
+  date: "2026-01-18"
+  objective: "Ameliorer precision en utilisant H-maxima au lieu de peak_local_max"
+
+model:
+  # Utilise le modele entraine de exp_004
+  source: "exp_004_attention_unet"
+  architecture: "AttentionUNet3D"
+  init_features: 48
+
+postprocessing:
+  method: "h_maxima"  # Changed from peak_local_max
+  h: 0.05  # Height threshold for h-maxima
+  threshold: 0.03  # Distance map threshold
+
+notes: |
+  Changement par rapport a exp_004:
+  - Pas de re-entrainement, utilise le modele exp_004
+  - Watershed avec H-maxima au lieu de peak_local_max
+  
+  Pourquoi H-maxima:
+  - peak_local_max trouve TOUS les maxima locaux (sensible au bruit)
+  - h_maxima supprime les maxima dont la hauteur < h
+  - Plus robuste : un vrai centre de grain a une valeur significativement plus haute
+  - Devrait reduire les faux positifs et mieux detecter les vrais centres

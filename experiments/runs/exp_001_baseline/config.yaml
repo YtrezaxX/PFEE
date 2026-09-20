@@ -1,0 +1,50 @@
+# Experiment Configuration - Baseline Reproduction
+# exp_001_baseline
+
+experiment:
+  name: "exp_001_baseline"
+  description: "Reproduction exacte du baseline U-Net original pour validation"
+  date: "2026-01-18"
+  objective: "Atteindre ~74.1% de detection comme reference"
+
+model:
+  architecture: "UNet3D"
+  init_features: 48
+  depth: 3
+  in_channels: 1
+  out_channels: 1
+
+training:
+  epochs: 250
+  batch_size: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  scheduler: "CosineAnnealingLR"
+  
+loss:
+  type: "mse_gradient"
+  mse_weight: 0.7
+  gradient_weight: 0.3
+
+data:
+  patch_size: 64
+  num_patches_per_volume: 50
+  train_split: 0.8
+  augmentation: false
+
+hardware:
+  device: "cuda"
+  num_workers: 4
+  mixed_precision: false
+
+seed: 42
+
+notes: |
+  Configuration exacte du notebook original data_yukiko/unet_training_pipeline.ipynb
+  - U-Net 3D avec 3 niveaux encodeur/decodeur
+  - 48 features initiales
+  - Loss combinee MSE (70%) + Gradient (30%)
+  - Patches 64x64x64
+  - 250 epochs avec AdamW et CosineAnnealingLR
+  
+  Objectif: Reproduire les resultats pour avoir une baseline de comparaison.

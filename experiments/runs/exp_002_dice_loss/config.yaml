@@ -1,0 +1,50 @@
+# Experiment Configuration - Dice Loss
+# exp_002_dice_loss
+
+experiment:
+  name: "exp_002_dice_loss"
+  description: "Test Dice Loss au lieu de MSE pour mieux gerer les bordures"
+  date: "2026-01-18"
+  objective: "Ameliorer IoU et Dice en utilisant Dice Loss"
+
+model:
+  architecture: "UNet3D"
+  init_features: 48
+  depth: 3
+  in_channels: 1
+  out_channels: 1
+
+training:
+  epochs: 250
+  batch_size: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  scheduler: "CosineAnnealingLR"
+  
+loss:
+  type: "dice_mse"  # Changed from mse_gradient
+  dice_weight: 0.5
+  mse_weight: 0.5
+
+data:
+  patch_size: 64
+  num_patches_per_volume: 50
+  train_split: 0.8
+  augmentation: false
+
+hardware:
+  device: "cuda"
+  num_workers: 4
+  mixed_precision: false
+
+seed: 42
+
+notes: |
+  Changement par rapport au baseline:
+  - Loss: Dice (50%) + MSE (50%) au lieu de MSE (70%) + Gradient (30%)
+  
+  Pourquoi Dice Loss:
+  - Mesure le chevauchement entre prediction et verite terrain
+  - Robuste au desequilibre de classes (beaucoup de fond)
+  - Penalise les faux positifs ET faux negatifs
+  - Devrait ameliorer IoU et Dice metrics

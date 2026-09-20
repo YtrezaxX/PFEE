@@ -1,0 +1,50 @@
+# Experiment Configuration - Attention U-Net
+# exp_004_attention_unet
+
+experiment:
+  name: "exp_004_attention_unet"
+  description: "Test Attention U-Net pour mieux focaliser sur les centres de grains"
+  date: "2026-01-18"
+  objective: "Ameliorer detection avec Attention Gates"
+
+model:
+  architecture: "AttentionUNet3D"  # Changed
+  init_features: 48
+  depth: 3
+  in_channels: 1
+  out_channels: 1
+
+training:
+  epochs: 250
+  batch_size: 4
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  scheduler: "CosineAnnealingLR"
+  
+loss:
+  type: "mse_gradient"
+  mse_weight: 0.7
+  gradient_weight: 0.3
+
+data:
+  patch_size: 64
+  num_patches_per_volume: 50
+  train_split: 0.8
+  augmentation: false
+
+hardware:
+  device: "cuda"
+  num_workers: 4
+  mixed_precision: false
+
+seed: 42
+
+notes: |
+  Changement par rapport au baseline:
+  - Architecture: Attention U-Net au lieu de U-Net standard
+  
+  Pourquoi Attention Gates:
+  - Permet au decodeur de "selectionner" les features pertinentes
+  - Supprime le bruit dans les skip connections
+  - Devrait mieux detecter les centres de grains (haute valeur de distance)
+  - Meilleure precision sur les bordures entre grains adjacents

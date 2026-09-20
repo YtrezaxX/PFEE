@@ -1,0 +1,33 @@
+{
+  "method": "h_maxima_003",
+  "pred_grains": 5618,
+  "gt_grains": 5456,
+  "grain_count_accuracy": 1.029692082111437,
+  "iou": 0.723374704360598,
+  "dice": 0.8394862736818255,
+  "mse": 0.005502142012119293,
+  "mae": 0.045618824660778046,
+  "ssim": 0.8980876803398132,
+  "all_methods": {
+    "baseline": {
+      "count": 5232,
+      "accuracy": 0.9589442815249267
+    },
+    "h_maxima_003": {
+      "count": 5618,
+      "accuracy": 1.029692082111437
+    },
+    "h_maxima_005": {
+      "count": 5482,
+      "accuracy": 1.0047653958944283
+    },
+    "h_maxima_008": {
+      "count": 5356,
+      "accuracy": 0.9816715542521994
+    },
+    "combined": {
+      "count": 5484,
+      "accuracy": 1.0051319648093842
+    }
+  }
+}

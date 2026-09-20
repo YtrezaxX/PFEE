@@ -1,0 +1,26 @@
+{
+  "evaluation_type": "proper_split_by_base_file",
+  "test_base_files": [
+    "triax.3.eps=-0.02.spheres",
+    "triax.7.eps=-0.06.spheres",
+    "triax.11.eps=-0.1.spheres",
+    "initial-state-reference"
+  ],
+  "n_test_images": 52,
+  "n_train_images": 156,
+  "per_image": {
+    "f1_mean": 0.9992066377159544,
+    "f1_std": 0.0014218374827650187,
+    "precision_mean": 0.9998097810002923,
+    "recall_mean": 0.9986066081002188,
+    "mae_mean": 0.0031916127280475427
+  },
+  "overall": {
+    "precision": 0.9998166366938186,
+    "recall": 0.9986545505776275,
+    "f1": 0.9992352557664181,
+    "tp": 283538,
+    "fp": 52,
+    "fn": 382
+  }
+}

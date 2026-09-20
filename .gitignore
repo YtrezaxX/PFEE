@@ -1,0 +1,16 @@
+venv
+Greyscale
+.ipynb_checkpoints
+data
+__pycache__
+*.swp
+.venv
+# PyTorch model checkpoints (too large for GitHub)
+*.pth
+**/checkpoints/
+
+# Large dataset files (generated, can be regenerated)
+experiments/runs/*/dataset/
+experiments/runs/exp_008_clean_images/dataset/
+experiments/runs/exp_009_clean_training/dataset/
+experiments/runs/exp_010_large_clean/dataset/
